@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ p.title }}{% endblock %}
+
+{% block breadcrumbs %}
+    {% if menu_cat %}
+        <a href="{{ menu_cat.href }}">{{ menu_cat.title }}</a>
+    {% endif %}
+    <a href="#" class="active">{{ p.title }}</a>
+{% endblock %}
+
+{% block content %}
+	{% if 'podarochnyie-sertifikatyi' in request_url %}
+	    <section class="sidebar__box">
+	        <h5>Я хочу приобрести подарочный сертификат  FIT-N-GO !</h5>
+	        <span class="back form-btn btn-yellow">
+	            <input type="submit" class="gift" value="Приобрести"/>
+	        </span>
+	    </section>
+	{% endif %}
+	
+	{% if 'franchajzing' in request_url %}
+        <section class="sidebar__box">
+            <p>Подробнее о франшизе Вы можете узнать <br />по телефону: +7 985 421 3863, e-mail: fr@fit-n-go.com
+<br />или оставьте заявку на открытие студии прямо сейчас</p>
+            <h5>Я хочу открыть студию Fit-n-go!</h5>
+            <span class="back form-btn btn-yellow">
+                <input type="submit" class="franchajzing" value="Подать заявку"/>
+            </span>
+        </section>
+    {% endif %}
+
+	{{ p.content|safe }}
+
+	{% if 'podarochnyie-sertifikatyi' in request_url %}
+	    <section class="sidebar__box">
+	        <h5>Я хочу приобрести подарочный сертификат  FIT-N-GO !</h5>
+	        <span class="back form-btn btn-yellow">
+	            <input type="submit" class="gift" value="Приобрести"/>
+	        </span>
+	    </section>
+	{% endif %}
+	
+	{% if 'franchajzing' in request_url %}
+        <section class="sidebar__box">
+            <p>Подробнее о франшизе Вы можете узнать <br />по телефону: +7 985 421 3863, e-mail: fr@fit-n-go.com
+<br />или оставьте заявку на открытие студии прямо сейчас</p>
+            <h5>Я хочу открыть студию Fit-n-go!</h5>
+            <span class="back form-btn btn-yellow">
+                <input type="submit" class="franchajzing" value="Подать заявку"/>
+            </span>
+        </section>
+    {% endif %}
+
+{% endblock %}
