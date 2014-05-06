@@ -1,1 +1,1 @@
-python manage.py dumpdata gallery menu news pages partners order programs review slideshow subscribe > dump_all____.json
+python manage.py dumpdata pages slideshow vacancy resumeform staffform > dump___may.json

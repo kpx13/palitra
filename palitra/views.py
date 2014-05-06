@@ -28,21 +28,19 @@ def get_common_context(request):
     c = {}
     if request.method == 'POST':
         if request.POST['action'] == 'resume':
-            rform = ResumeForm(request.POST)
+            rform = ResumeForm(request.POST, request.FILES)
             if rform.is_valid():
                 rform.save()
-                messages.success(request, u'Ваша заявка успешно отправлена.')
                 rform = ResumeForm()
-            else:
-                messages.error(request, u'Необходимо ввести имя и телефон.')
+                c['r_ok'] = True
         elif request.POST['action'] == 'staff':
             sform = StaffForm(request.POST)
             if sform.is_valid():
                 sform.save()
-                messages.success(request, u'Ваша заявка успешно отправлена.')
                 sform = StaffForm()
-            else:
-                messages.error(request, u'Необходимо ввести имя и телефон.')
+                c['s_ok'] = True
+            
+                
         
     c['request_url'] = request.path
     c['is_debug'] = settings.DEBUG
@@ -65,11 +63,12 @@ def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'
     c['slider'] = Slider.objects.all()
-    c['content'] = Page.get_by_slug('home')
+    c['p'] = Page.get_by_slug('home')
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
 def vacancy(request):
     c = get_common_context(request)
-    #c['slider'] = Slider.objects.all()
-    c['content'] = Page.get_by_slug('vacancy')
-    return render_to_response('home.html', c, context_instance=RequestContext(request))
+    c['vacancy'] = Vacancy.objects.all()
+    c['p'] = Page.get_by_slug('vacancy')
+    return render_to_response('vacancy.html', c, context_instance=RequestContext(request))
+

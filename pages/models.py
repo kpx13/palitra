@@ -2,6 +2,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 import pytils
+from dashboard import string_with_title
 
 class Page(models.Model):
     title = models.CharField(max_length=256, verbose_name=u'заголовок')
@@ -23,6 +24,7 @@ class Page(models.Model):
     class Meta:
         verbose_name = u'статическая страница'
         verbose_name_plural = u'статические страницы'
+        app_label = string_with_title("pages", u"Статические страницы")
         ordering=['title']
         
     def __unicode__(self):

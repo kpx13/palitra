@@ -2,6 +2,7 @@
 
 from django.db import models
 from pytils import translit
+from dashboard import string_with_title
 
 class Resume(models.Model):
     name  = models.CharField(u'Имя', max_length=255)
@@ -14,6 +15,7 @@ class Resume(models.Model):
     class Meta:
         verbose_name = u'резюме'
         verbose_name_plural = u'резюме'
+        app_label = string_with_title("resumeform", u"Присланные резюме")
         ordering = ['-request_date']
     
     def __unicode__(self):

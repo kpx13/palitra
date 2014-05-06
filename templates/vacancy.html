@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ p.title }}{% endblock %}
+
+{% block content %}
+    <div class="breadcrumbs">
+        <a href="/">Главная</a>
+        <span>{{ p.title }}</span>
+    </div>
+    
+    
+    
+    <h3>{{ p.title }}</h3>
+    
+    {{ p.content|safe }}
+
+
+    <div class="block-wrp">
+        {% for v in vacancy %}
+            <div class="block">
+                <div class="block__title">{{ v.name }}</div>
+                <div class="block__hidden">
+                    {{ v.content|safe }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
+{% endblock %}

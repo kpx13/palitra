@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
  
-from django.forms import ModelForm
+from django.forms import ModelForm, fields, TextInput
 from models import Resume
 from django.conf import settings
 from livesettings import config_value
@@ -14,6 +14,11 @@ def sendmail(subject, body):
 
 
 class ResumeForm(ModelForm):    
+    
+    name  = fields.CharField(label=u'Имя', widget=TextInput(attrs={'placeholder': u'Ваше имя'}))
+    email  = fields.CharField(label=u'E-mail', widget=TextInput(attrs={'placeholder': u'E-mail'}))
+    phone  = fields.CharField(label=u'Телефон', required=False, widget=TextInput(attrs={'placeholder': u'Телефон'}))
+    
     class Meta:
         model = Resume
         exclude = ('date', )
@@ -23,13 +28,16 @@ class ResumeForm(ModelForm):
         subject=u'Новое резюме'
         
         body_templ="""
-{% for field in form %}
-   {{ field.label }} - {{ field.value }}
-{% endfor %}
+
+   Имя - {{ form.name.value }}
+   Email - {{ form.email.value }}
+   Телефон - {{ form.phone.value }}
+   Файл: - http://palitra.webgenesis.ru/uploads/resumes/{{ form.file.value }}
+
             """
+            
         ctx = Context({
             'form': self,
-
         })
         body = Template(body_templ).render(ctx)
         sendmail(subject, body)

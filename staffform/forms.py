@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
  
-from django.forms import ModelForm
+from django.forms import ModelForm, fields, TextInput, Textarea
 from models import Staff
 from django.conf import settings
 from livesettings import config_value
@@ -14,6 +14,12 @@ def sendmail(subject, body):
 
 
 class StaffForm(ModelForm):    
+    
+    name  = fields.CharField(label=u'Имя', widget=TextInput(attrs={'placeholder': u'Ваше имя'}))
+    email  = fields.CharField(label=u'E-mail', widget=TextInput(attrs={'placeholder': u'E-mail'}))
+    phone  = fields.CharField(label=u'Телефон', required=False, widget=TextInput(attrs={'placeholder': u'Телефон'}))
+    comment  = fields.CharField(label=u'Комментарий', required=False, widget=Textarea(attrs={'placeholder': u'Комментарий'}))
+    
     class Meta:
         model = Staff
         exclude = ('date', )

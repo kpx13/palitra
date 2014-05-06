@@ -1,38 +1,127 @@
-{% extends 'base_wrap.html' %}
+<!DOCTYPE html>
 
-{% block wrapper %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class='message-wrapper'>
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message|safe }}
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-    
+<html class="lt-ie9 lt-ie8" lang="ru"><![endif]-->
+<!--[if IE 8]>
+<html class="lt-ie9" lang="ru"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ru"><!--<![endif]-->
+<head>
+    <title>Palitra | {% block title %}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <!--[if lt IE 9]>
+    <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/script.js"></script>
+</head>
+<body>
+<div class="g-line"></div>
+<div class="wrapper">
+
+
+    <header class="header">
+        <a href='/'><h1 class="logo">
+            Кадровое агенство Палитра
+        </h1></a>
+
+        <div class="contact">
+            <div class="phone">+7 925 089-67-87</div>
+            <div class="mail">email: <a href="mailto:>mail@mail.ru">mail@mail.ru</a></div>
+        </div>
+        <div class="quote">« Я не хочу, чтобы меня характеризовали по моей карьере. Я хочу, чтобы меня характеризовали
+            как хорошего человека. » <span class="quote__author">Натаниэль Бузолич</span>
+        </div>
+        <nav class="g-nav">
+            <a class="g-nav_1" href="/">Главная </a>
+            <a class="g-nav_2" href="/podbor-personala/">Подбор персонала</a>
+            <a class="g-nav_3" href="/vacancy/">Соискателям </a>
+            <a class="g-nav_4" href="/kontaktyi/">Контакты</a>
+
+        </nav>
+
+    </header>
     <div class="container">
         <aside class="sidebar">
+            <section class="form-wrp">
+                <div class="form__title">Заявка на подбор персонала</div>
+                
+                {% if s_ok %}
+                    <div class="form"><h4>Ваша заявка успешно отправлена.</h4></div>
+                {% else %}
+                    <form action="" method='POST'>
+                        {% csrf_token %}
+                        <input type='hidden' name='action' value='staff'>
+                        <div class="form">
+                            {% if sform.errors.name %}<p class='err'>{{ sform.errors.name.0 }}</p>{% endif %}
+                            {{ sform.name }}
+                            {% if sform.errors.email %}<p class='err'>{{ sform.errors.email.0 }}</p>{% endif %}
+                            {{ sform.email }}
+                            {% if sform.errors.phone %}<p class='err'>{{ sform.errors.phone.0 }}</p>{% endif %}
+                            {{ sform.phone }}
+                            {% if sform.errors.comment %}<p class='err'>{{ sform.errors.comment.0 }}</p>{% endif %}
+                            {{ sform.comment }}
+                        </div>
+                        <div class="btn-wrap">
+                            <input class="btn-send" type="submit" value="Отправить"/>
+                        </div>
+                    </form>
+                {% endif %}
 
-            {% if menu_cat.submenu.all %}
-                <ul class="sidebar__nav">
-                    {% for s in menu_cat.submenu.all %}
-                        <li><a href="{{ s.href }}" {% if s.href in request_url %} class='active' {% endif %}>{{ s.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            
-            {% include 'right_side.html' %}
+            </section>
+            <section class="form-wrp">
+                <div class="form__title">Отправить резюме</div>
+
+                 {% if r_ok %}
+                    <div class="form"><h4>Ваша заявка успешно отправлена.</h4></div>
+                {% else %}
+                    <form action="" method='POST' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type='hidden' name='action' value='resume'>
+                        <div class="form">
+                            {% if rform.errors.name %}<p class='err'>{{ rform.errors.name.0 }}</p>{% endif %}
+                            {{ rform.name }}
+                            {% if rform.errors.email %}<p class='err'>{{ rform.errors.email.0 }}</p>{% endif %}
+                            {{ rform.email }}
+                            {% if rform.errors.phone %}<p class='err'>{{ rform.errors.phone.0 }}</p>{% endif %}
+                            {{ rform.phone }}
+                            {% if rform.errors.file %}<p class='err'>{{ rform.errors.file.0 }}</p>{% endif %}
+                            {{ rform.file }}
+                        </div>
+                        <div class="btn-wrap">
+                            <input class="btn-send" type="submit" value="Отправить"/>
+                        </div>
+                    </form>
+                {% endif %}
+            </section>
         </aside>
-        
-        <div class="content">
-            <div class="breadcrumbs">
-                <a href="/">Главная</a>
-                {% block breadcrumbs %}
-                {% endblock %}
-            </div>
+        <div class="content">           
             {% block content %}
             {% endblock %}
         </div>
     </div>
-{% endblock %}
+    <footer class="footer">
+      <div class="foot__i">
+          1997-2014 © <br/>
+          Кадровое агентство
+
+      </div>
+      <div class="foot__i">
+          Тел.: +7 (495) 677-41-33 (Москва)<br/>
+          E-mail: <a class="foot__mail" href="mailto:info@mail.ru">info@mail.ru</a>
+      </div>
+      <div class="foot__i">
+        <div class="foot__info"></div>
+        <div class="foot__info"></div>
+
+      </div>
+      <div class="foot__i">
+          Разработка сайта и<br/> продвижение
+      </div>
+    </footer>
+</div>
+</body>
+</html>
+
+
+    
