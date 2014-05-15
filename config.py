@@ -18,3 +18,4 @@ config_register(StringValue(
         help_text = u"Почта, куда будут приходить заявки.",
         default = 'annkpx@gmail.com'
     ))
+
